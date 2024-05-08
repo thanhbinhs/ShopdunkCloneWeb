@@ -1,0 +1,32 @@
+.header{
+    height: 160px;
+    width: 100%;
+    position: fixed;
+}
+
+.header__navbar-list{
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0 80px;
+}
+
+.header__navbar-item{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header__logo-img{
+    height: 32px;
+    margin-right: 7px;
+}
+
+.header__logo-name{
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary-color);
+
+}
