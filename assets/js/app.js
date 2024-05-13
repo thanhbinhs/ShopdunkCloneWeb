@@ -55,6 +55,12 @@ function updateDotActive() {
 }
 
 listControl.forEach((control, index) => {
+    let delay = 0;
+    if(index === 0) {
+        delay = 12;
+    }else{
+        delay = 7;
+    }
 
     const handleChangeSlide = () => {
         if((index === 0 && control.current === control.length) || (index === 1 && control.current === control.length - 2)) {
@@ -97,13 +103,13 @@ listControl.forEach((control, index) => {
             updateDotActive();
             handleEventChangeSlide = setInterval(() => {
                 handleChangeSlide(listControl[0]);
-            }, 12000);
+            }, delay*1000);
         });
     });
 
     let handleEventChangeSlide = setInterval(() => {
         handleChangeSlide(control)
-    }, 12000);
+    }, delay*1000);
 
     window.addEventListener('load', () => {
         if(index === 0) {
@@ -127,7 +133,7 @@ listControl.forEach((control, index) => {
         control.listImage.style.transform = `translateX(${control.width * -1 * control.current}px)`; // Đặt vị trí ban đầu
         handleEventChangeSlide = setInterval(() => {
             handleChangeSlide(control)
-        }, 12000)
+        }, delay*1000);
     });
 
     control.nextButton.addEventListener('click', () => {
@@ -165,7 +171,7 @@ listControl.forEach((control, index) => {
         updateDotActive();
         handleEventChangeSlide = setInterval(() => {
             handleChangeSlide(control)
-        }, 12000);
+        }, delay*1000);
         setTimeout(() => {
             isClickable = true; // Khôi phục khả năng nhấn sau 1-2 giây
         }, 1000); 
