@@ -1,26 +1,23 @@
 .header{
     height: 64px;
-    width: 100%;
 
 }
 /* Header */
 .header__navbar{
     height: 64px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    list-style: none;
-    padding: 0 160px;
     width: 100%;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
     background-color: var(--back-color);
     position: fixed;
-    z-index: 1000;
+    z-index: 1000;;
 }
 
 .header__navbar-list{
     display: flex;
     justify-content: space-around;
-    width: 70%;
 }
 
 .header__navbar-item{
@@ -58,7 +55,6 @@
 
 .header__navbar-option-list{
     display: flex;
-    width: 200px;
     padding: 0 18px;
     grid-area: auto;
     list-style: none;
@@ -149,6 +145,7 @@
     text-decoration: none;
     color: var(--text-color);
     border-top: 1px solid #666;
+
 }
 
 
@@ -290,22 +287,24 @@
 
 /* Topic */
 .topic{
-    margin: 60px 170px 60px 170px;
     position: relative;
     overflow: hidden;
+    max-width: 1200px;
+    margin: 60px auto;
 }
 
 .topic__img-list{
     display: flex; 
     transition: 1s;
-
 }
 
 .topic-item{
     width: 32%;
+    cursor: pointer;
     margin: 0 10px;
-    object-fit: fill;
+    object-fit: cover;
 }
+
 
 .topic__control{
     position: absolute;
@@ -336,3 +335,5 @@
 .topic__control-next{
     right: -50px;
 }
+
+
