@@ -251,11 +251,11 @@
 }
 
 .banner__control-prev{
-    left: 10px;
+    left: 0;
 }
 
 .banner__control-next{
-    right: 10px;
+    right: 0;
 }
 
 .banner__control:hover{
@@ -290,13 +290,13 @@
 
 /* Topic */
 .topic{
-    margin: 60px 180px;
+    margin: 60px 170px 60px 170px;
     position: relative;
+    overflow: hidden;
 }
 
 .topic__img-list{
     display: flex; 
-    overflow: hidden;
     transition: 1s;
 
 }
@@ -330,9 +330,9 @@
 }
 
 .topic__control-prev{
-    left: -30px;
+    left: -40px;
 }
 
 .topic__control-next{
-    right: -30px;
+    right: -50px;
 }
