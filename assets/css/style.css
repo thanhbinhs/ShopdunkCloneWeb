@@ -22,7 +22,7 @@
 
 .header__navbar-item{
     height: 64px;
-    font-size: 15px;
+    font-size: 1.5rem;
     padding: 22px 16px;
     display: flex;
     align-items: center;
@@ -44,7 +44,7 @@
 
 .header__navbar-icon-link{
     color: var(--text-color);
-    font-size: 8px;
+    font-size: 0.8rem;
     padding-left: 8px;
 }
 
@@ -68,7 +68,7 @@
 
 
 .header__navbar-icon{
-    font-size: 20px;
+    font-size: 2rem;
     color: var(--text-color);
 }
 
@@ -186,7 +186,7 @@
 .header__account-option a{
     text-decoration: none;
     color: #333;
-    font-size: 14px;
+    font-size: 1.4rem;
     cursor: pointer;
 }
 
@@ -209,9 +209,13 @@
     margin: 0 auto;
 }
 
-.banner{
+.container__banner{
     position: relative;
+}
+
+.banner{
     overflow: hidden;
+    transition: 2s;
 }
 
 .banner__img-list{
@@ -233,7 +237,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 28px;
+    font-size: 2.8rem;
     background-color: rgba(0,0,0,0.2);
     margin: 0 56px;
     color: rgba(255, 255, 255, 0.1);
@@ -286,11 +290,17 @@
 }
 
 /* Topic */
-.topic{
+
+.container__topic{
     position: relative;
-    overflow: hidden;
     max-width: 1200px;
     margin: 60px auto;
+}
+
+.topic{
+
+    overflow: hidden;
+
 }
 
 .topic__img-list{
@@ -310,7 +320,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 24px;
+    font-size: 2.4rem;
     background-color: rgba(0,0,0,0.1);
     margin: 0 56px;
     color: var(--back-color);

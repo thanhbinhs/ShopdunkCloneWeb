@@ -1,6 +1,7 @@
 // Infinite Image Slider -- Banner
 
-// const banner = document.querySelector('.banner');
+const banner = document.querySelector('.banner');
+const topic = document.querySelector('.topic');
 const listImage = document.querySelectorAll('.img-list');
 const imgsBanner = document.querySelectorAll('.banner__img-item');
 const imgsTopic = document.querySelectorAll('.topic-item');
@@ -22,8 +23,13 @@ let widthTopic = imgsTopic[0].offsetWidth;
 
 let isClickable = true;
 
+
+let isMouseDown = false
+let startX, scrollLeft
+
 var listControl = [
-    {
+    {   
+        "main": banner,
         "listImage": listImage[0],
         "im": imgsBanner[0], // "im" is short for "image
         "nextButton": nextBtn[0],
@@ -33,6 +39,7 @@ var listControl = [
         "length": lengthBanner 
     },
     {
+        "main": topic, 
         "listImage": listImage[1],
         "im": imgsTopic[0], // "im" is short for "image
         "nextButton": nextBtn[1],
@@ -95,6 +102,7 @@ listControl.forEach((control, index) => {
     }
     
 
+
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             clearInterval(handleEventChangeSlide);
@@ -110,6 +118,8 @@ listControl.forEach((control, index) => {
     let handleEventChangeSlide = setInterval(() => {
         handleChangeSlide(control)
     }, delay*1000);
+
+        
 
     window.addEventListener('load', () => {
         if(index === 0) {
@@ -136,6 +146,69 @@ listControl.forEach((control, index) => {
         }, delay*1000);
     });
 
+
+    control.main.addEventListener('mousedown', (e) => {
+        clearInterval(handleEventChangeSlide);
+        isMouseDown = true;
+        startX = e.pageX - control.main.offsetLeft
+        scrollLeft = control.main.scrollLeft
+        handleEventChangeSlide = setInterval(() => {
+            handleChangeSlide(control);
+        }, 12000);
+    });
+
+    control.main.addEventListener('mouseleave', () => {
+        isMouseDown = false
+    });
+
+    control.main.addEventListener('mouseup', () => {
+        isMouseDown = false
+    })
+
+    let walk = 0;
+    control.main.addEventListener('mousemove', (e) => {
+        if (!isMouseDown) return
+        clearInterval(handleEventChangeSlide);
+        const x = e.pageX - control.main.offsetLeft;
+        walk = (x - startX)
+        control.listImage.style.transition = 'none';
+        control.listImage.style.transform = `translateX(${control.width * -1 * control.current + walk}px)`;
+        console.log(Math.abs(scrollLeft - walk) + ' ' + control.width/5);
+        if(Math.abs(scrollLeft - walk) < control.width/8) {
+            console.log('reset');
+            control.main.addEventListener('mouseup', resetMain);
+        }else{
+            console.log('not reset');
+            control.main.addEventListener('mouseup', nextMain);
+        }
+        handleEventChangeSlide = setInterval(() => {
+            handleChangeSlide(control);
+        }, 12000);
+        scrollLeft = 0;
+
+    });
+
+    function resetMain(){
+        console.log('reset main');
+        control.main.removeEventListener('mouseup', resetMain);
+        isMouseDown = false
+        control.listImage.style.transition = 'transform 1s ease';
+        control.listImage.style.transform = `translateX(${control.width * -1 * control.current  - scrollLeft}px)`;
+    }
+
+    function nextMain(){
+        console.log('next main');
+        control.main.removeEventListener('mouseup', nextMain);
+        isMouseDown = false
+        control.listImage.style.transition = 'transform 1s ease';
+        if(walk < 0){
+            handleChangeSlide(control);
+        }else{
+            handlePrevSlide(control);
+        }
+        updateDotActive();
+    }
+
     control.nextButton.addEventListener('click', () => {
         if (!isClickable) return;
         isClickable = false;
@@ -149,11 +222,7 @@ listControl.forEach((control, index) => {
         }, 1000);
     });
 
-
-    control.prevButton.addEventListener('click', () => {
-        if (!isClickable) return;
-        isClickable = false;
-        clearInterval(handleEventChangeSlide);
+    function handlePrevSlide(control){
         if(control.current === 1 ) {
             control.current--;
             control.listImage.style.transform = `translateX(${control.width* -1 * control.current}px)`;
@@ -169,6 +238,13 @@ listControl.forEach((control, index) => {
             control.listImage.style.transform = `translateX(${control.width* -1 * control.current}px)`;
         }
         updateDotActive();
+    }
+
+    control.prevButton.addEventListener('click', () => {
+        if (!isClickable) return;
+        isClickable = false;
+        clearInterval(handleEventChangeSlide);
+        handlePrevSlide(control);
         handleEventChangeSlide = setInterval(() => {
             handleChangeSlide(control)
         }, delay*1000);
