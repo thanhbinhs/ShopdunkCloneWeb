@@ -50,6 +50,8 @@ var listControl = [
     }
 ]
 
+
+
 function updateDotActive() {
     const dots = document.querySelectorAll('.banner__dot');
     dots.forEach((dot, index) => {
@@ -61,13 +63,31 @@ function updateDotActive() {
     });
 }
 
+function changeImageURLs() {
+    const images = document.querySelectorAll('img[data-small][data-large]');
+    images.forEach(img => {
+        if (window.innerWidth >= 700) {
+            img.src = img.getAttribute('data-large');
+        } else {
+            img.src = img.getAttribute('data-small');
+        }
+    });
+}
+
+// Thực hiện thay đổi khi trang được tải lần đầu
+window.onload = changeImageURLs;
+
+// Lắng nghe sự kiện thay đổi kích thước cửa sổ
+window.onresize = changeImageURLs;
+
+
 listControl.forEach((control, index) => {
     let delay = 0;
     if(index === 0) {
         delay = 12;
     }else{
         delay = 7;
-    }
+    }   
 
     const handleChangeSlide = () => {
         if((index === 0 && control.current === control.length) || (index === 1 && control.current === control.length - 2)) {
@@ -82,6 +102,8 @@ listControl.forEach((control, index) => {
         }
         updateDotActive();
     }
+
+
 
     function resetToStart() {
         control.listImage.removeEventListener('transitionend', resetToStart); // Xóa event listener để không lặp lại
@@ -122,6 +144,7 @@ listControl.forEach((control, index) => {
         
 
     window.addEventListener('load', () => {
+
         if(index === 0) {
             control.width = control.im.offsetWidth;
         }else{
@@ -130,10 +153,12 @@ listControl.forEach((control, index) => {
         control.listImage.style.transform = `translateX(${control.width * -1}px)`; // Đặt vị trí ban đầu
         control.listImage.style.transition = 'transform 1s ease'; // Đảm bảo có animation
         updateDotActive();
+
     });
 
 
     window.addEventListener('resize', () => {
+
         clearInterval(handleEventChangeSlide);
         if(index === 0) {
             control.width = control.im.offsetWidth;
@@ -255,6 +280,16 @@ listControl.forEach((control, index) => {
 });
 
 
+const gotoBack = document.querySelector(".gotop-btn")
 
+window.addEventListener('scroll', function() {
+    const scrollPosition = window.scrollY;
 
+    if (scrollPosition >= 1000) {
+        gotoBack.style.display = "block"
+    } else {
+        gotoBack.style.display = "none"
+
+    }
+});
 

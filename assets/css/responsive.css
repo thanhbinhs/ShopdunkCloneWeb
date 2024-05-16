@@ -1,0 +1,157 @@
+@media (max-width: 1240px){
+    .grid__row{
+        padding: 0 3%;
+        justify-content: start;
+    }
+    
+    .grid__col-2-4{
+        width: 33%;
+        /* padding: 20px 40px; */
+    }
+
+    .product__type-item{
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 1024px){
+
+    .header__navbar{
+        justify-content: space-evenly;
+    }
+
+    .header__navbar-list{
+        display: none;
+    }
+
+    .header__navbar-menu{
+        display: block;
+    }
+
+    .header__navbar-logo{
+
+    }
+
+    .header__user--hover{
+        display: none;
+    }
+
+
+    .header__menu{
+        display: flex;
+    }
+
+}
+
+@media (max-width: 824px) {
+    .grid__col-2-3{
+        width: 100%;
+        padding: 0 80px;
+    }
+
+    .news__box-item{
+        margin-bottom: 20px;
+    }
+
+    .footer__social{
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+    .grid__col-2, .grid__col-3{
+        width: 100%;
+        border-bottom: 1px solid #515154;
+        margin: 0 80px 20px 80px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .product__item-img{
+        width: 80%;
+        object-fit: contain;
+    }
+
+    .product__saleoff-img{
+        height: 30px;
+    }
+
+    .product__item-name{
+        height: 54px;
+        overflow: hidden;
+    }
+
+    .product__price-new, .product__price-old{
+        text-wrap: wrap;
+    }
+
+
+
+    .footer__heading{
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+
+    .footer-item{
+        display: none;
+    }
+
+    .footer__navbar-icon-link{
+        display: inline;
+        font-size: 1.5rem;
+        color: #d2d2d7;
+    }
+
+}
+
+@media (max-width: 500px){
+
+    .grid__row{
+        justify-content: center;
+        align-items: center;
+    }
+    .banner__img-item{
+        height: 650px;
+    }
+    
+    .grid__col-2-4{
+        width: 50%;
+        /* padding: 0 40px; */
+    }
+
+    .topic-item{
+        width: 100%;
+    }
+
+    .banner2{
+        background-image: url(../images/banner10.png);
+    }
+
+    .newletter__sub{
+        font-size: 1.3rem;
+    }
+
+    .newletter__form{
+        width: 100%;
+        justify-content: start;
+    }
+
+    .news__item-name{
+        height: 96px;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 400px){
+    .banner__img-item{
+        height: 320px;
+    }
+
+    .product__item-img{
+        width: 100%;
+        height: 160px;
+    }
+
+    .product__price-old, .product__price-ratio{
+        font-size: 1.1rem;
+    }
+}
