@@ -27,8 +27,7 @@ let isClickable = true;
 let isMouseDown = false
 let startX, scrollLeft
 
-var listControl = [
-    {   
+var listControl = [{
         "main": banner,
         "listImage": listImage[0],
         "im": imgsBanner[0], // "im" is short for "image
@@ -36,10 +35,10 @@ var listControl = [
         "prevButton": prevBtn[0],
         "width": widthBanner,
         "current": currentBanner,
-        "length": lengthBanner 
+        "length": lengthBanner
     },
     {
-        "main": topic, 
+        "main": topic,
         "listImage": listImage[1],
         "im": imgsTopic[0], // "im" is short for "image
         "nextButton": nextBtn[1],
@@ -83,20 +82,20 @@ window.onresize = changeImageURLs;
 
 listControl.forEach((control, index) => {
     let delay = 0;
-    if(index === 0) {
+    if (index === 0) {
         delay = 12;
-    }else{
+    } else {
         delay = 7;
-    }   
+    }
 
     const handleChangeSlide = () => {
-        if((index === 0 && control.current === control.length) || (index === 1 && control.current === control.length - 2)) {
+        if ((index === 0 && control.current === control.length) || (index === 1 && control.current === control.length - 2)) {
             control.current++;
             control.listImage.style.transform = `translateX(${control.width * -1 * control.current}px)`;
             control.listImage.style.transition = 'transform 1s ease'; // Đảm bảo có animation
             control.current = 1;
             control.listImage.addEventListener('transitionend', resetToStart);
-        } else{
+        } else {
             control.current++;
             control.listImage.style.transform = `translateX(${control.width* -1 * control.current}px)`;
         }
@@ -114,7 +113,7 @@ listControl.forEach((control, index) => {
         }, 0);
     }
 
-    function resetToEnd(){
+    function resetToEnd() {
         control.listImage.removeEventListener('transitionend', resetToEnd); // Xóa event listener để không lặp lại
         control.listImage.style.transition = 'none'; // Loại bỏ animation để reset không bị thấy
         control.listImage.style.transform = `translateX(${control.width * -1 * control.current}px)`;
@@ -122,32 +121,32 @@ listControl.forEach((control, index) => {
             control.listImage.style.transition = 'transform 1s ease';
         }, 0);
     }
-    
+
 
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             clearInterval(handleEventChangeSlide);
-            listControl[0].current = index +1;
+            listControl[0].current = index + 1;
             listControl[0].listImage.style.transform = `translateX(${listControl[0].width* -1 * listControl[0].current}px)`;
             updateDotActive();
             handleEventChangeSlide = setInterval(() => {
                 handleChangeSlide(listControl[0]);
-            }, delay*1000);
+            }, delay * 1000);
         });
     });
 
     let handleEventChangeSlide = setInterval(() => {
         handleChangeSlide(control)
-    }, delay*1000);
+    }, delay * 1000);
 
-        
+
 
     window.addEventListener('load', () => {
 
-        if(index === 0) {
+        if (index === 0) {
             control.width = control.im.offsetWidth;
-        }else{
+        } else {
             control.width = control.im.offsetWidth + 20;
         }
         control.listImage.style.transform = `translateX(${control.width * -1}px)`; // Đặt vị trí ban đầu
@@ -160,49 +159,65 @@ listControl.forEach((control, index) => {
     window.addEventListener('resize', () => {
 
         clearInterval(handleEventChangeSlide);
-        if(index === 0) {
+        if (index === 0) {
             control.width = control.im.offsetWidth;
-        }else{
+        } else {
             control.width = control.im.offsetWidth + 20;
         }
         control.listImage.style.transform = `translateX(${control.width * -1 * control.current}px)`; // Đặt vị trí ban đầu
         handleEventChangeSlide = setInterval(() => {
             handleChangeSlide(control)
-        }, delay*1000);
+        }, delay * 1000);
     });
 
+    // Sự kiện mousedown
+    control.main.addEventListener('mousedown', handleMouseDown);
+    // Sự kiện mouseleave
+    control.main.addEventListener('mouseleave', handleMouseLeave);
+    // Sự kiện mouseup
+    control.main.addEventListener('mouseup', handleMouseUp);
+    // Sự kiện mousemove
+    control.main.addEventListener('mousemove', handleMouseMove);
 
-    control.main.addEventListener('mousedown', (e) => {
+    // Sự kiện touchstart
+    control.main.addEventListener('touchstart', handleTouchStart);
+    // Sự kiện touchend
+    control.main.addEventListener('touchend', handleTouchEnd);
+    // Sự kiện touchmove
+    control.main.addEventListener('touchmove', handleTouchMove);
+
+
+
+    function handleMouseDown(e) {
         clearInterval(handleEventChangeSlide);
         isMouseDown = true;
-        startX = e.pageX - control.main.offsetLeft
-        scrollLeft = control.main.scrollLeft
+        startX = e.pageX - control.main.offsetLeft;
+        scrollLeft = control.main.scrollLeft;
         handleEventChangeSlide = setInterval(() => {
             handleChangeSlide(control);
         }, 12000);
-    });
+    }
 
-    control.main.addEventListener('mouseleave', () => {
-        isMouseDown = false
-    });
+    function handleMouseLeave() {
+        isMouseDown = false;
+    }
 
-    control.main.addEventListener('mouseup', () => {
-        isMouseDown = false
-    })
+    function handleMouseUp() {
+        isMouseDown = false;
+    }
 
-    let walk = 0;
-    control.main.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return
+    function handleMouseMove(e) {
+        if (!isMouseDown) return;
         clearInterval(handleEventChangeSlide);
         const x = e.pageX - control.main.offsetLeft;
-        walk = (x - startX)
+        walk = (x - startX);
         control.listImage.style.transition = 'none';
         control.listImage.style.transform = `translateX(${control.width * -1 * control.current + walk}px)`;
-        console.log(Math.abs(scrollLeft - walk) + ' ' + control.width/5);
-        if(Math.abs(scrollLeft - walk) < control.width/8) {
+        console.log(Math.abs(scrollLeft - walk) + ' ' + control.width / 5);
+        if (Math.abs(scrollLeft - walk) < control.width / 8) {
             console.log('reset');
             control.main.addEventListener('mouseup', resetMain);
-        }else{
+        } else {
             console.log('not reset');
             control.main.addEventListener('mouseup', nextMain);
         }
@@ -210,29 +225,69 @@ listControl.forEach((control, index) => {
             handleChangeSlide(control);
         }, 12000);
         scrollLeft = 0;
-
-    });
-
-    function resetMain(){
-        console.log('reset main');
-        control.main.removeEventListener('mouseup', resetMain);
-        isMouseDown = false
-        control.listImage.style.transition = 'transform 1s ease';
-        control.listImage.style.transform = `translateX(${control.width * -1 * control.current  - scrollLeft}px)`;
     }
 
-    function nextMain(){
+    function handleTouchStart(e) {
+        const touch = e.touches[0];
+        clearInterval(handleEventChangeSlide);
+        isMouseDown = true;
+        startX = touch.pageX - control.main.offsetLeft;
+        scrollLeft = control.main.scrollLeft;
+        handleEventChangeSlide = setInterval(() => {
+            handleChangeSlide(control);
+        }, 12000);
+        e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt
+    }
+
+    function handleTouchEnd(e) {
+        isMouseDown = false;
+        e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt
+    }
+
+    function handleTouchMove(e) {
+        clearInterval(handleEventChangeSlide);
+        if (!isMouseDown) return;
+        const touch = e.touches[0];
+        const x = touch.pageX - control.main.offsetLeft;
+        walk = (x - startX);
+        control.listImage.style.transition = 'none';
+        control.listImage.style.transform = `translateX(${control.width * -1 * control.current + walk}px)`;
+        console.log(Math.abs(scrollLeft - walk) + ' ' + control.width / 5);
+        if (Math.abs(scrollLeft - walk) < control.width / 8) {
+            console.log('reset');
+            control.main.addEventListener('touchend', resetMain);
+        } else {
+            console.log('not reset');
+            control.main.addEventListener('touchend', nextMain);
+        }
+        handleEventChangeSlide = setInterval(() => {
+            handleChangeSlide(control);
+        }, 12000);
+        scrollLeft = 0;
+        e.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt
+    }
+
+    function resetMain() {
+        console.log('reset main');
+        control.main.removeEventListener('mouseup', resetMain);
+        isMouseDown = false;
+        control.listImage.style.transition = 'transform 1s ease';
+        control.listImage.style.transform = `translateX(${control.width * -1 * control.current - scrollLeft}px)`;
+    }
+
+    function nextMain() {
         console.log('next main');
         control.main.removeEventListener('mouseup', nextMain);
-        isMouseDown = false
+        isMouseDown = false;
         control.listImage.style.transition = 'transform 1s ease';
-        if(walk < 0){
+        if (walk < 0) {
             handleChangeSlide(control);
-        }else{
+        } else {
             handlePrevSlide(control);
         }
         updateDotActive();
     }
+
 
     control.nextButton.addEventListener('click', () => {
         if (!isClickable) return;
@@ -247,18 +302,18 @@ listControl.forEach((control, index) => {
         }, 1000);
     });
 
-    function handlePrevSlide(control){
-        if(control.current === 1 ) {
+    function handlePrevSlide(control) {
+        if (control.current === 1) {
             control.current--;
             control.listImage.style.transform = `translateX(${control.width* -1 * control.current}px)`;
             control.listImage.style.transition = 'transform 1s ease'; // Đảm bảo có animation
-            if(index === 0) {
+            if (index === 0) {
                 control.current = control.length;
-            }else{
+            } else {
                 control.current = control.length - 2;
             }
             control.listImage.addEventListener('transitionend', resetToEnd);
-        } else{
+        } else {
             control.current--;
             control.listImage.style.transform = `translateX(${control.width* -1 * control.current}px)`;
         }
@@ -272,10 +327,10 @@ listControl.forEach((control, index) => {
         handlePrevSlide(control);
         handleEventChangeSlide = setInterval(() => {
             handleChangeSlide(control)
-        }, delay*1000);
+        }, delay * 1000);
         setTimeout(() => {
             isClickable = true; // Khôi phục khả năng nhấn sau 1-2 giây
-        }, 1000); 
+        }, 1000);
     });
 });
 
@@ -293,3 +348,40 @@ window.addEventListener('scroll', function() {
     }
 });
 
+
+const headerMenuBarIcon = document.querySelectorAll(".menu__bar-icon-link")
+const headerMenuBarLisr = document.querySelectorAll(".menu__service")
+
+headerMenuBarIcon.forEach((btn, index) => {
+    btn.addEventListener('click', function() {
+        if (headerMenuBarLisr[index].style.display === "none") {
+            headerMenuBarLisr[index].style.display = "flex"
+        } else {
+            headerMenuBarLisr[index].style.display = "none"
+        }
+    })
+
+})
+
+
+// Change Class Tag Menu Bar
+
+const tagMenuBar = document.querySelector(".header__navbar-icon--change")
+const headerMenuBar = document.querySelector(".header__menu-bar")
+
+tagMenuBar.addEventListener('click', function() {
+    if (headerMenuBar.style.display === "none") {
+        headerMenuBar.style.display = "block"
+        tagMenuBar.classList.replace("fa-bars", "fa-xmark")
+        headerMenuBar.style.animationName = "wipeIn"
+        headerMenuBar.style.animationDuration = "1s"
+
+    } else {
+        tagMenuBar.classList.replace("fa-xmark", "fa-bars")
+        headerMenuBar.style.display = 'none'; // Đặt display thành none sau khi animation kết thúc
+        headerMenuBar.style.animationName = "wipeOut"
+        headerMenuBar.style.animationDuration = "1s"
+
+    }
+})
+console.log(tagMenuBar);
