@@ -370,18 +370,23 @@ const tagMenuBar = document.querySelector(".header__navbar-icon--change")
 const headerMenuBar = document.querySelector(".header__menu-bar")
 
 tagMenuBar.addEventListener('click', function() {
-    if (headerMenuBar.style.display === "none") {
-        headerMenuBar.style.display = "block"
+    headerMenuBar.style.display = "block"
+    if (headerMenuBar.style.animationName === "wipeIn") {
         tagMenuBar.classList.replace("fa-bars", "fa-xmark")
-        headerMenuBar.style.animationName = "wipeIn"
+        headerMenuBar.style.animationName = "wipeOut"
         headerMenuBar.style.animationDuration = "1s"
 
     } else {
         tagMenuBar.classList.replace("fa-xmark", "fa-bars")
-        headerMenuBar.style.display = 'none'; // Đặt display thành none sau khi animation kết thúc
-        headerMenuBar.style.animationName = "wipeOut"
+        headerMenuBar.style.animationName = "wipeIn"
         headerMenuBar.style.animationDuration = "1s"
 
     }
 })
-console.log(tagMenuBar);
+
+
+window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1024) {
+        headerMenuBar.style.display = "none"
+    }
+})
