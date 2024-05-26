@@ -368,6 +368,7 @@ headerMenuBarIcon.forEach((btn, index) => {
 
 const tagMenuBar = document.querySelector(".header__navbar-icon--change")
 const headerMenuBar = document.querySelector(".header__menu-bar")
+const menuBottom = document.querySelector(".menu__bottom")
 
 tagMenuBar.addEventListener('click', function() {
     headerMenuBar.style.display = "block"
@@ -388,5 +389,10 @@ tagMenuBar.addEventListener('click', function() {
 window.addEventListener('resize', function() {
     if (window.innerWidth >= 1024) {
         headerMenuBar.style.display = "none"
+    }
+    if (window.innerWidth <= 500) {
+        menuBottom.style.display = "block"
+    } else {
+        menuBottom.style.display = "none"
     }
 })
