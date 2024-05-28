@@ -807,8 +807,6 @@
 
 .title {
     padding: 15px 0;
-    display: flex;
-    align-items: center;
     background-color: var(--white-color);
 }
 
@@ -876,26 +874,35 @@
     color: var(--white-color);
 }
 
+.news-main--size-back {
+    display: none;
+}
+
 .news-type {
     display: flex;
     justify-content: space-around;
     padding-bottom: 20px;
+    overflow-x: scroll;
 }
 
 .news-type__item {
-    padding: 12px 15px 12px 15px;
-    display: flex;
-    align-items: center;
     background-color: var(--white-color);
     border-radius: 8px;
     box-shadow: 0px 1px 8px rgb(0 0 0 / 4%);
+    padding: 10px 15px;
+    margin: 5px 16px 0 0;
 }
 
 .news-type__item-link {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     font-size: 1.5rem;
     color: #515154;
     font-weight: 100;
+    line-height: 2.4rem;
+    flex-wrap: nowrap;
+    width: 120px;
 }
 
 .news-type__item-icon {
