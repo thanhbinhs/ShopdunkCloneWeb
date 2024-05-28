@@ -332,6 +332,8 @@ listControl.forEach((control, index) => {
             isClickable = true; // Khôi phục khả năng nhấn sau 1-2 giây
         }, 1000);
     });
+
+    // window.addEventListener('')
 });
 
 
