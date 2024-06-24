@@ -9,6 +9,7 @@
     z-index: 1000;
     background-color: var(--back-color);
     width: 100%;
+    top: 0;
 }
 
 .header__navbar {
@@ -472,7 +473,9 @@
 
 .product__saleoff-img {
     margin: 9px 9px 0 0;
+    max-width: 95px;
     height: 50px;
+    object-fit: contain;
 }
 
 .product__item-link {
@@ -800,13 +803,9 @@
 
 /* News Page */
 
-.news,
-.login {
-    padding-top: 64px;
-}
-
 .title {
     padding: 15px 0;
+    padding-top: 80px;
     background-color: var(--white-color);
 }
 
