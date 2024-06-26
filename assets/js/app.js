@@ -383,6 +383,11 @@ tagMenuBar.addEventListener('click', function() {
         tagMenuBar.classList.replace("fa-xmark", "fa-bars")
         headerMenuBar.style.animationName = "wipeIn"
         headerMenuBar.style.animationDuration = "1s"
+        timeOut = setTimeout(() => {
+            headerMenuBar.style.display = "none"
+        }, 800)
+
+
 
     }
 })

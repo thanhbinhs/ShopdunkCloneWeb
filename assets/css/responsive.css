@@ -184,11 +184,6 @@
     .footer__lower img {
         display: none;
     }
-    .container_card {
-        margin-top: 10px;
-        padding: 0 5%;
-        flex-wrap: wrap;
-    }
 }
 
 @media (max-width: 400px) {
