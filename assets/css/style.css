@@ -473,6 +473,8 @@
 .product__saleoff-img {
     margin: 9px 9px 0 0;
     height: 50px;
+    max-width: 95px;
+    object-fit: contain;
 }
 
 .product__item-link {
